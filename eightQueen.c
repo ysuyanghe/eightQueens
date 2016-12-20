@@ -5,9 +5,9 @@
  *
  *    Description:  
  *
- *        Version:  1.0
+ *        Version:  1.0 
  *        Created:  12/19/2016 09:40:53 AM
- *       Revision:  none
+ *       Revision:  digui hui lai de zhi budui ,i he over bianhua bu yi zhi 
  *       Compiler:  gcc
  *
  *         Author:  YOUR NAME (), 
@@ -27,7 +27,6 @@ int over=0;
 valueCompare (int (* Queen)[2],int i)
 {
 	int k;
-//	int valueNum=0;
 	int sum=Queen[i][0]+Queen[i][1];
 	int diff=Queen[i][0]-Queen[i][1];
 	for(k=0;k<8;k++)
@@ -66,31 +65,33 @@ eightQueen (int (*Queen)[2],int i)
    int sum,diff;
    int columnNum=0;
    int flag=0;
-   while(i+over<8)
+   while(i<8)
    {
+//	printf("i=%d\n",i);
    	for(j=0;j<8;j++)
 	{
             Queen[i][0]=i;
 	    Queen[i][1]=j;
-	    if(valueCompare(Queen,i+over)!=0)
+	    if(valueCompare(Queen,i)!=0)
 		    columnNum++;
 	    else
 	    {
 		columnNum=0;
-	    	over++;
+	    	over=1;
 	    	eightQueen(Queen,i+over);
 	    }
 	}
-	if(columnNum==8)
+	if(columnNum==8||j==8)
 	{
-	    printf("over\n");
 	    columnNum=0;
-	    over--;
-	    if(i<=0) flag=1;
+	    Queen[i][0]=10;
+	    Queen[i][1]=100;
+	    over=-1;
+	    if(over<0) flag=1;
 	    return -1;
 	}
-	if(flag==1)
-	   return -5;
+//	if(flag==1)
+//	   return -5;
    }
    return 0;
 }		/* -----  end of function eightQueen  ----- */
@@ -122,12 +123,14 @@ main ( int argc, char *argv[] )
 	int Queen[8][2]={10,100,10,100,10,100,10,100,
 			10,100,10,100,10,100,10,100};
 	showArray(Queen);
-	for(k=0;k<8;k++)
-	{
-		Queen[0][0]=0;
-		Queen[0][1]=k;
-		if(eightQueen(Queen,i)==0)
-			showArray(Queen);
-	}
+//	for(k=0;k<8;k++)
+//	{
+//		Queen[0][0]=0;
+//		Queen[0][1]=k;
+//		if(eightQueen(Queen,i)==0)
+//			showArray(Queen);
+//	}
+	if(eightQueen(Queen,i)==0)
+		showArray(Queen);
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */
