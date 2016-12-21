@@ -64,34 +64,31 @@ eightQueen (int (*Queen)[2],int i)
    int j=0,k=0;
    int sum,diff;
    int columnNum=0;
-   int flag=0;
    while(i<8)
    {
-//	printf("i=%d\n",i);
    	for(j=0;j<8;j++)
 	{
             Queen[i][0]=i;
 	    Queen[i][1]=j;
-	    if(valueCompare(Queen,i)!=0)
-		    columnNum++;
+	    if(valueCompare(Queen,i)!=0);
 	    else
 	    {
-		columnNum=0;
 	    	over=1;
 	    	eightQueen(Queen,i+over);
 	    }
 	}
-	if(columnNum==8||j==8)
+	if((j==8)&&i<8)
 	{
-	    columnNum=0;
 	    Queen[i][0]=10;
 	    Queen[i][1]=100;
 	    over=-1;
-	    if(over<0) flag=1;
 	    return -1;
 	}
-//	if(flag==1)
-//	   return -5;
+	if((j!=8)&&(i==7))
+	{
+	    columnNum=0;
+	    return 0;
+	}
    }
    return 0;
 }		/* -----  end of function eightQueen  ----- */
