@@ -7,16 +7,18 @@
  *
  *        Version:  1.0 
  *        Created:  12/19/2016 09:40:53 AM
- *       Revision:  digui hui lai de zhi budui ,i he over bianhua bu yi zhi 
+ *       Revision:  
  *       Compiler:  gcc
  *
- *         Author:  YOUR NAME (), 
+ *         Author:  yanghe 
  *   Organization:  
  *
  * =====================================================================================
  */
 #include "apue.h"
 int over=0;
+
+void showArray (int(* Queen)[2]);
 /* 
  * ===  FUNCTION  ======================================================================
  *         Name:  valueCompare
@@ -43,54 +45,47 @@ valueCompare (int (* Queen)[2],int i)
 
 /* 
  * ===  FUNCTION  ======================================================================
- *         Name:  columnCompare
- *  Description:  
- * =====================================================================================
- */
-	void
-columnCompare (int(*Queen)[2],int i)
-{
-	int j;
-}		/* -----  end of function columnCompare  ----- */
-/* 
- * ===  FUNCTION  ======================================================================
  *         Name:  eightQueen
  *  Description:  
  * =====================================================================================
  */
-	int
+	void
 eightQueen (int (*Queen)[2],int i)
 {
    int j=0,k=0;
    int sum,diff;
    int columnNum=0;
+   int valueRes=0;
+   static int uQueen=0;
    while(i<8)
    {
    	for(j=0;j<8;j++)
 	{
             Queen[i][0]=i;
 	    Queen[i][1]=j;
-	    if(valueCompare(Queen,i)!=0);
-	    else
+	    valueRes=valueCompare(Queen,i);
+	    if(valueRes==0&&i<7)
 	    {
 	    	over=1;
 	    	eightQueen(Queen,i+over);
 	    }
+	    if(valueRes==0&&i==7)
+	    {
+		    uQueen++;
+		    printf("%d  :",uQueen);
+		    showArray(Queen);
+		    Queen[7][0]=10;
+		    Queen[7][1]=100;
+		    return ;
+	    }
 	}
-	if((j==8)&&i<8)
-	{
-	    Queen[i][0]=10;
-	    Queen[i][1]=100;
-	    over=-1;
-	    return -1;
-	}
-	if((j!=8)&&(i==7))
-	{
-	    columnNum=0;
-	    return 0;
-	}
+	Queen[i][0]=10;
+	Queen[i][1]=100;
+	over=-1;
+	return ;
+	
    }
-   return 0;
+   return ;
 }		/* -----  end of function eightQueen  ----- */
 /* 
  * ===  FUNCTION  ======================================================================
@@ -102,9 +97,11 @@ eightQueen (int (*Queen)[2],int i)
 showArray (int(* Queen)[2])
 {
 	int k,j;
+//	for(k=0;k<8;k++)
+//		for(j=0;j<2;j++)
+//			printf("%d ",Queen[k][j]);
 	for(k=0;k<8;k++)
-		for(j=0;j<2;j++)
-			printf("%d",Queen[k][j]);
+		printf("%d ",Queen[k][1]);
 	printf("\n");
 }		/* -----  end of function show  ----- */
 /* 
@@ -120,14 +117,6 @@ main ( int argc, char *argv[] )
 	int Queen[8][2]={10,100,10,100,10,100,10,100,
 			10,100,10,100,10,100,10,100};
 	showArray(Queen);
-//	for(k=0;k<8;k++)
-//	{
-//		Queen[0][0]=0;
-//		Queen[0][1]=k;
-//		if(eightQueen(Queen,i)==0)
-//			showArray(Queen);
-//	}
-	if(eightQueen(Queen,i)==0)
-		showArray(Queen);
+	eightQueen(Queen,i);
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */
